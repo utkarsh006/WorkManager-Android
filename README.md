@@ -5,3 +5,9 @@
 
 - With WorkManager we can `enqueue our background processing` even when the app is not running and the device is rebooted for some reason. 
 - WorkManager also lets us define constraints necessary to run the task e.g. network availability before starting the background task.
+
+### 3 Different types of tasks
+
+- **Immediate Tasks :** Tasks that need to be done immediately and which will finish soon.
+- **Long Running Tasks :** Example is a large file download.
+- **Deferrable Tasks :** Scheduled tasks that start at a later time and can run periodically.
