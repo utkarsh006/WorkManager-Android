@@ -8,6 +8,10 @@ import com.example.quoteswork.data.local.QuoteDao
 import com.example.quoteswork.data.remote.ApiService
 import com.example.quoteswork.data.repository.QuoteRepoImpl
 import com.example.quoteswork.domain.repository.QuoteRepository
+import com.example.quoteswork.domain.usecases.GetAllQuotesFromDb
+import com.example.quoteswork.domain.usecases.GetQuote
+import com.example.quoteswork.domain.usecases.QuoteUseCases
+import com.example.quoteswork.domain.usecases.SetUpPeriodicRequest
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -56,4 +60,15 @@ class DataModule {
     fun provideQuoteRepository(workManager: WorkManager, quoteDao: QuoteDao): QuoteRepository {
         return QuoteRepoImpl(workManager, quoteDao)
     }
+
+    @Provides
+    @Singleton
+    fun provideUseCases(quoteRepository: QuoteRepository): QuoteUseCases {
+        return QuoteUseCases(
+            getQuote = GetQuote(quoteRepository),
+            getAllQuotesFromDb = GetAllQuotesFromDb(quoteRepository),
+            setUpPeriodicRequest = SetUpPeriodicRequest(quoteRepository)
+        )
+    }
+
 }

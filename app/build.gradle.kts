@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "gaur.himanshu.workmanageryt"
+    namespace = "com.example.QuotesWork"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "gaur.himanshu.workmanageryt"
+        applicationId = "com.example.QuotesWork"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
