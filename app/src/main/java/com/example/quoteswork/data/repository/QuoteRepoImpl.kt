@@ -9,6 +9,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.quoteswork.data.local.QuoteDao
 import com.example.quoteswork.data.worker.FetchWorker
+import com.example.quoteswork.data.worker.NotificationWorker
 import com.example.quoteswork.data.worker.PeriodicWorker
 import com.example.quoteswork.domain.model.Quote
 import com.example.quoteswork.domain.repository.QuoteRepository
@@ -30,7 +31,11 @@ class QuoteRepoImpl(
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueue(workRequest)
+        val notificationWorkRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
+            .build()
+        workManager.beginWith(workRequest)
+            .then(notificationWorkRequest)
+            .enqueue()
     }
 
     override fun getAllQuotes(): Flow<List<Quote>> = quoteDao.getAllQuotes()
